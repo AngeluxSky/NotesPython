@@ -36,7 +36,22 @@ def read_notes():
         print("Заметок нет.")
 
 def edit_note():
-    pass
+    if notes:
+        for note in notes:
+            print(f"\nID: {note['id']}")
+            print(f"Заголовок: {note['title']}\n")
+    note_id = int(input("Введите ID заметки для редактирования: "))
+    for note in notes:
+        if note["id"] == note_id:
+            new_title = input("Новый заголовок заметки: ")
+            new_body = input("Новый текст заметки: ")
+            note["title"] = new_title
+            note["body"] = new_body
+            note["timestamp"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            save_notes()
+            print("Заметка успешно отредактирована.\n")
+            return
+    print("Заметка с указанным ID не найдена.")
 
 
 def delete_note():
