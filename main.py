@@ -3,7 +3,6 @@ import os
 import datetime
 
 
-
 def create_note():
     title = input("Введите заголовок заметки: ")
     body = input("Введите текст заметки: ")
@@ -19,10 +18,10 @@ def create_note():
     notes.append(note)
     save_notes()
 
+
 def save_notes():
     with open("notes.json", "w") as file:
         json.dump(notes, file, indent=4)
-
 
 
 def read_notes():
@@ -34,6 +33,7 @@ def read_notes():
             print(f"Текст: {note['body']}\n")
     else:
         print("Заметок нет.")
+
 
 def edit_note():
     if notes:
@@ -55,7 +55,19 @@ def edit_note():
 
 
 def delete_note():
-    pass
+    if notes:
+        for note in notes:
+            print(f"\nID: {note['id']}")
+            print(f"Заголовок: {note['title']}\n")
+    note_id = int(input("Введите ID заметки для удаления: "))
+    for note in notes:
+        if note["id"] == note_id:
+            notes.remove(note)
+            save_notes()
+            print("Заметка успешно удалена.\n")
+            return
+    print("Заметка с указанным ID не найдена!")
+
 
 def main():
     global notes
